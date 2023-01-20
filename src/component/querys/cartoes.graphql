@@ -1,0 +1,11 @@
+query Cartoes {
+  cartoes
+  {
+    cartaoId
+    numeroCartao
+    nomeTitular
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}

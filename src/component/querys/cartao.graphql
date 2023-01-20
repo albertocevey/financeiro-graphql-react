@@ -1,0 +1,12 @@
+query Cartao($cartaoId: String!)
+{
+  cartao(cartaoId: $cartaoId)
+  {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}

@@ -1,38 +1,39 @@
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { Box, Grid, Paper } from "@mui/material";
 import { Cartao, useCartoesQuery } from "../../generated";
-import Cards from 'react-credit-cards';
-import 'react-credit-cards/es/styles-compiled.css';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+import Cards from "react-credit-cards";
+import "react-credit-cards/es/styles-compiled.css";
+import { Link } from "react-router-dom";
 
 const Cartoes = () => {
-  
-    const { data, isLoading } = useCartoesQuery()
-    
-    return (
-      <div id="PaymentForm">
-            {data && data.cartoes?.map((cartao: Cartao) => (
-            <>
-              <Grid xs={12}>
-                  <Cards
-                    expiry={cartao.dataValidadeCartao}
-                    name={cartao.nomeTitular}
-                    number={cartao.numeroCartao}
-                    cvc="111"
-                    />
-              </Grid>
-              <br></br>
-            </>  
-            ))} 
-      </div>      
-    )
-}
+  const { data, isLoading } = useCartoesQuery();
 
-export default Cartoes
+  return (
+    <>
+      {isLoading && <p>Carregando ...</p>}
+      <div id="PaymentForm">
+        {data &&
+          data.cartoes?.map((cartao: Cartao) => (
+            <Link
+              to={{
+                pathname: "../detalhescartao/" + `${cartao.cartaoId}`,
+              }}
+              relative="route"
+            >
+              <Cards
+                key={cartao.cartaoId}
+                expiry={cartao.dataValidadeCartao}
+                name={cartao.nomeTitular}
+                number={cartao.numeroCartao}
+                cvc="111"
+              />
+
+              <br></br>
+            </Link>
+          ))}
+      </div>
+    </>
+  );
+};
+
+export default Cartoes;

@@ -1,36 +1,38 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css'
-import Cartoes from './component/pages/Cartoes'
-import Cartao from './component/pages/Cartao';
-import Route from './component/routes/routes';
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import Topbar from "./scenes/global/Topbar";
+import Cartoes from "./component/pages/Cartoes";
+import { Route, Routes } from "react-router-dom";
+import LeftSidebar from "./scenes/global/LeftSidebar";
+import Home from "./component/pages/Home";
+import Cartao from "./component/pages/DetalhesCartao";
+import { useCartaoQuery } from "generated";
+import DetalhesCartao from "./component/pages/DetalhesCartao";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Route />,
-    children: [
-      {
-        path: "/cartao/",
-        element: <Cartao />,
-      },
-      {
-        path: "/cartoes/",
-        element: <Cartoes />,
-      },
-    ]
-  },
-  
-]);
-const queryClient = new QueryClient()
-
-const App = () => {
+function App() {
+  const [theme, colorMode]: any = useMode();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  )
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+          <LeftSidebar />
+          <main className="content">
+            <Topbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/detalhescartao/:cartaoId"
+                element={<DetalhesCartao />}
+                loader={({ params }: any) => {}}
+              />
+              <Route path="/cartoes/" element={<Cartoes />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
 }
-
-export default App
+export default App;

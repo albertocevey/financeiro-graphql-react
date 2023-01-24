@@ -86,7 +86,7 @@ const AdicionarCartao = () => {
       <FormProvider {...methods}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
-            <Grid xs={6}>
+            <Grid item xs={6}>
               <Cards
                 number={numeroCartao}
                 name={nomeTitular}
@@ -94,80 +94,79 @@ const AdicionarCartao = () => {
                 cvc="111"
                 focused={focus}
               />
-              <Grid />
-              <Grid xs={6}>
-                <CssTextField
-                  id="outlined-input"
-                  label="Numero do Cartão"
-                  required
-                  helperText="Preenchimento Obrigatorio"
-                  onChange={(e) => {
-                    SetNumeroCartao(e.target.value);
-                  }}
-                  onFocus={(e: any) => SetFocus(e.target.name)}
-                />
-                <br />
-                <CssTextField
-                  id="outlined-basic"
-                  label="Nome do Titular"
-                  variant="outlined"
-                  required
-                  helperText="Preenchimento Obrigatorio"
-                  onChange={(e) => {
-                    SetNomeTitular(e.target.value);
-                  }}
-                  onFocus={(e: any) => SetFocus(e.target.name)}
-                />
-                <br />
-                <CssTextField
-                  id="outlined-basic"
-                  label="Data de Validade do Cartão"
-                  variant="outlined"
-                  required
-                  helperText="Preenchimento Obrigatorio"
-                  onChange={(e) => {
-                    SetDataValidadeCartao(e.target.value);
-                  }}
-                  onFocus={(e: any) => SetFocus(e.target.name)}
-                />
-              </Grid>
+            </Grid>
+            <Grid item xs={3}>
+              <CssTextField
+                id="outlined-input"
+                label="Numero do Cartão"
+                required
+                helperText="Preenchimento Obrigatorio"
+                onChange={(e) => {
+                  SetNumeroCartao(e.target.value);
+                }}
+                onFocus={(e: any) => SetFocus(e.target.name)}
+              />
               <br />
-              <Grid xs={6}>
-                <CssTextField
-                  id="outlined-basic"
-                  label="Dia do Vencimento da fatura"
-                  variant="outlined"
-                  required
-                  helperText="Preenchimento Obrigatorio"
-                />
-                <br />
-                <CssTextField
-                  id="outlined-basic"
-                  label="Dia do Vencimento da fatura"
-                  variant="outlined"
-                  required
-                  helperText="Preenchimento Obrigatorio"
-                />
-                <br />
-                <CssTextField
-                  id="outlined-basic"
-                  label="Observações"
-                  variant="outlined"
-                />
-              </Grid>
+              <CssTextField
+                id="outlined-basic"
+                label="Nome do Titular"
+                variant="outlined"
+                required
+                helperText="Preenchimento Obrigatorio"
+                onChange={(e) => {
+                  SetNomeTitular(e.target.value);
+                }}
+                onFocus={(e: any) => SetFocus(e.target.name)}
+              />
               <br />
+              <CssTextField
+                id="outlined-basic"
+                label="Data de Validade do Cartão"
+                variant="outlined"
+                required
+                helperText="Preenchimento Obrigatorio"
+                onChange={(e) => {
+                  SetDataValidadeCartao(e.target.value);
+                }}
+                onFocus={(e: any) => SetFocus(e.target.name)}
+              />
+            </Grid>
+            <br />
+            <Grid item xs={3}>
+              <CssTextField
+                id="outlined-basic"
+                label="Dia do Vencimento da fatura"
+                variant="outlined"
+                required
+                helperText="Preenchimento Obrigatorio"
+              />
+              <br />
+              <CssTextField
+                id="outlined-basic"
+                label="Dia do Vencimento da fatura"
+                variant="outlined"
+                required
+                helperText="Preenchimento Obrigatorio"
+              />
+              <br />
+              <CssTextField
+                id="outlined-basic"
+                label="Observações"
+                variant="outlined"
+              />
+            </Grid>
+            <br />
 
-              <Grid container xs={12}>
-                <LoadingButton
-                  variant="contained"
-                  fullWidth
-                  type="submit"
-                  loading={loading}
-                  sx={{ py: "0.8rem", mt: "1rem" }}
-                >
-                  Cadastrar Cartão
-                </LoadingButton>
-              </Grid>
+            <Grid item xs={12}>
+              <LoadingButton
+                variant="contained"
+                fullWidth
+                type="submit"
+                loading={loading}
+                sx={{ py: "0.8rem", mt: "1rem" }}
+              >
+                Cadastrar Cartão
+              </LoadingButton>
             </Grid>
           </Grid>
         </Box>

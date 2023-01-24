@@ -80,7 +80,7 @@ const LeftSidebar = () => {
 
           <Item
             title="Home"
-            to="/"
+            to="financeiro-graphql-react"
             icon={<HomeOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
@@ -88,7 +88,7 @@ const LeftSidebar = () => {
 
           <Item
             title="Cartões"
-            to="/Cartoes"
+            to="financeiro-graphql-react/cartoes"
             icon={<CreditCardOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}

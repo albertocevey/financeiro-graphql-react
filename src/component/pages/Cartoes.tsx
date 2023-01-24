@@ -11,7 +11,7 @@ const Cartoes = () => {
     <>
       <Link
         to={{
-          pathname: "../adicionarCartao/",
+          pathname: "../financeiro-graphql-react/adicionarCartao/",
         }}
         relative="route"
       >
@@ -23,7 +23,9 @@ const Cartoes = () => {
           data.cartoes?.map((cartao: Cartao) => (
             <Link
               to={{
-                pathname: "../detalhescartao/" + `${cartao.cartaoId}`,
+                pathname:
+                  "../financeiro-graphql-react/detalhescartao/" +
+                  `${cartao.cartaoId}`,
               }}
               relative="route"
             >

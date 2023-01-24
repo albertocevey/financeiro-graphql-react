@@ -43,7 +43,7 @@ const AdicionarCartao = () => {
       nomeTitular: "",
       dataValidadeCartao: "",
       dataVencimentoFatura: "",
-      observacoes: "",
+      observacao: "",
     },
   });
 
@@ -131,7 +131,7 @@ const AdicionarCartao = () => {
                 label="Observações"
                 variant="outlined"
                 type="input"
-                {...register("observacoes")}
+                {...register("observacao")}
               />
             </Grid>
             <br />

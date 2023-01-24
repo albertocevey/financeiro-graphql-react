@@ -16,9 +16,9 @@ echo > .nojekyll
 # echo 'www.example.com' > CNAME
 
 git init
-git checkout -B main
+git checkout -B master
 git add -A
-git commit -m 'deploy'
+git commit -m 'deploye'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main

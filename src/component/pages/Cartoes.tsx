@@ -1,15 +1,22 @@
-import { styled } from "@mui/material/styles";
-import { Box, Grid, Paper } from "@mui/material";
 import { Cartao, useCartoesQuery } from "../../generated";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const Cartoes = () => {
   const { data, isLoading } = useCartoesQuery();
 
   return (
     <>
+      <Link
+        to={{
+          pathname: "../adicionarCartao/",
+        }}
+        relative="route"
+      >
+        <Button variant="contained">Adicionar Cartão</Button>
+      </Link>
       {isLoading && <p>Carregando ...</p>}
       <div id="PaymentForm">
         {data &&

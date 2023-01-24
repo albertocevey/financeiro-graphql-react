@@ -1,0 +1,24 @@
+mutation CadastrarCartao ($nomeTitular: String!, 
+$numeroCartao: String!, 
+$dataValidadeCartao: String!, 
+$dataVencimentoFatura: String!,
+$observacao: String
+)
+{
+  cadastrarCartao(cadastrarCartaoInput:
+  {
+    nomeTitular: $nomeTitular
+    numeroCartao: $numeroCartao
+    dataValidadeCartao: $dataValidadeCartao
+    dataVencimentoFatura: $dataVencimentoFatura
+    observacao: $observacao
+  })
+  {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}

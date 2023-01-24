@@ -1,4 +1,9 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  UseMutationOptions,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -63,7 +68,7 @@ export type AtualizarCartaoInput = {
   /** Nome do Titular */
   nomeTitular?: InputMaybe<Scalars["String"]>;
   /** Numero do cartão */
-  numeroCartao?: InputMaybe<Scalars["Float"]>;
+  numeroCartao?: InputMaybe<Scalars["String"]>;
   /** Comentario sobre o cartão */
   observacao?: InputMaybe<Scalars["String"]>;
 };
@@ -75,7 +80,7 @@ export type AtualizarCompraCartaoInput = {
   /** Nome da Compra */
   nomeCompra?: InputMaybe<Scalars["String"]>;
   /** Numero do cartão */
-  numeroCartao?: InputMaybe<Scalars["Float"]>;
+  numeroCartao?: InputMaybe<Scalars["String"]>;
   /** Comentario da compra */
   observacao?: InputMaybe<Scalars["String"]>;
   /** Numero de parcelas da compra */
@@ -117,7 +122,7 @@ export type CadastrarCartaoInput = {
   /** Nome do Titular */
   nomeTitular: Scalars["String"];
   /** Numero do cartão */
-  numeroCartao: Scalars["Float"];
+  numeroCartao: Scalars["String"];
   /** Comentario sobre o cartão */
   observacao?: InputMaybe<Scalars["String"]>;
 };
@@ -128,7 +133,7 @@ export type CadastrarCompraCartaoInput = {
   /** Nome da Compra */
   nomeCompra: Scalars["String"];
   /** Numero do cartão */
-  numeroCartao: Scalars["Float"];
+  numeroCartao: Scalars["String"];
   /** Comentario da compra */
   observacao?: InputMaybe<Scalars["String"]>;
   /** Numero de parcelas da compra */
@@ -148,7 +153,7 @@ export type Cartao = {
   /** Nome Titular Cartão */
   nomeTitular: Scalars["String"];
   /** Numero do cartão */
-  numeroCartao: Scalars["Float"];
+  numeroCartao: Scalars["String"];
   /** Comentarios sobre o cartão */
   observacao?: Maybe<Scalars["String"]>;
 };
@@ -162,7 +167,7 @@ export type CompraCartao = {
   /** Nome da compra */
   nomeCompra: Scalars["String"];
   /** Numero do cartão */
-  numeroCartao: Scalars["Float"];
+  numeroCartao: Scalars["String"];
   /** Comentarios sobre a compra */
   observacao?: Maybe<Scalars["String"]>;
   /** Quantidade de parcelas da compra */
@@ -325,6 +330,27 @@ export type User = {
   userId: Scalars["String"];
 };
 
+export type CadastrarCartaoMutationVariables = Exact<{
+  nomeTitular: Scalars["String"];
+  numeroCartao: Scalars["String"];
+  dataValidadeCartao: Scalars["String"];
+  dataVencimentoFatura: Scalars["String"];
+  observacao?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type CadastrarCartaoMutation = {
+  __typename?: "Mutation";
+  cadastrarCartao: {
+    __typename?: "Cartao";
+    cartaoId: string;
+    nomeTitular: string;
+    numeroCartao: string;
+    dataValidadeCartao: string;
+    dataVencimentoFatura: string;
+    observacao?: string | null;
+  };
+};
+
 export type CartaoQueryVariables = Exact<{
   cartaoId: Scalars["String"];
 }>;
@@ -335,7 +361,7 @@ export type CartaoQuery = {
     __typename?: "Cartao";
     cartaoId: string;
     nomeTitular: string;
-    numeroCartao: number;
+    numeroCartao: string;
     dataValidadeCartao: string;
     dataVencimentoFatura: string;
     observacao?: string | null;
@@ -349,7 +375,7 @@ export type CartoesQuery = {
   cartoes: Array<{
     __typename?: "Cartao";
     cartaoId: string;
-    numeroCartao: number;
+    numeroCartao: string;
     nomeTitular: string;
     dataValidadeCartao: string;
     dataVencimentoFatura: string;
@@ -357,6 +383,45 @@ export type CartoesQuery = {
   }>;
 };
 
+export const CadastrarCartaoDocument = `
+    mutation CadastrarCartao($nomeTitular: String!, $numeroCartao: String!, $dataValidadeCartao: String!, $dataVencimentoFatura: String!, $observacao: String) {
+  cadastrarCartao(
+    cadastrarCartaoInput: {nomeTitular: $nomeTitular, numeroCartao: $numeroCartao, dataValidadeCartao: $dataValidadeCartao, dataVencimentoFatura: $dataVencimentoFatura, observacao: $observacao}
+  ) {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}
+    `;
+export const useCadastrarCartaoMutation = <
+  TError = unknown,
+  TContext = unknown
+>(
+  options?: UseMutationOptions<
+    CadastrarCartaoMutation,
+    TError,
+    CadastrarCartaoMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    CadastrarCartaoMutation,
+    TError,
+    CadastrarCartaoMutationVariables,
+    TContext
+  >(
+    ["CadastrarCartao"],
+    (variables?: CadastrarCartaoMutationVariables) =>
+      fetcher<CadastrarCartaoMutation, CadastrarCartaoMutationVariables>(
+        CadastrarCartaoDocument,
+        variables
+      )(),
+    options
+  );
 export const CartaoDocument = `
     query Cartao($cartaoId: String!) {
   cartao(cartaoId: $cartaoId) {

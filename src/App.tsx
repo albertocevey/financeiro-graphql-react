@@ -8,6 +8,7 @@ import Home from "./component/pages/Home";
 import Cartao from "./component/pages/DetalhesCartao";
 import { useCartaoQuery } from "generated";
 import DetalhesCartao from "./component/pages/DetalhesCartao";
+import AdicionarCartao from "./component/pages/AdicionarCartao";
 
 function App() {
   const [theme, colorMode]: any = useMode();
@@ -28,6 +29,7 @@ function App() {
                 loader={({ params }: any) => {}}
               />
               <Route path="/cartoes/" element={<Cartoes />} />
+              <Route path="/adicionarCartao/" element={<AdicionarCartao />} />
             </Routes>
           </main>
         </div>

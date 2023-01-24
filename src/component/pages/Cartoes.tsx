@@ -21,24 +21,28 @@ const Cartoes = () => {
       <div id="PaymentForm">
         {data &&
           data.cartoes?.map((cartao: Cartao) => (
-            <Link
-              to={{
-                pathname:
-                  "../financeiro-graphql-react/detalhescartao/" +
-                  `${cartao.cartaoId}`,
-              }}
-              relative="route"
-            >
-              <Cards
-                key={cartao.cartaoId}
-                expiry={cartao.dataValidadeCartao}
-                name={cartao.nomeTitular}
-                number={cartao.numeroCartao}
-                cvc="111"
-              />
+            <ul className="nobull" key={cartao.cartaoId}>
+              <li key={cartao.cartaoId}>
+                <Link
+                  to={{
+                    pathname:
+                      "../financeiro-graphql-react/detalhescartao/" +
+                      `${cartao.cartaoId}`,
+                  }}
+                  relative="route"
+                >
+                  <Cards
+                    key={cartao.cartaoId}
+                    expiry={cartao.dataValidadeCartao}
+                    name={cartao.nomeTitular}
+                    number={cartao.numeroCartao}
+                    cvc="111"
+                  />
 
-              <br></br>
-            </Link>
+                  <br></br>
+                </Link>
+              </li>
+            </ul>
           ))}
       </div>
     </>

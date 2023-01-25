@@ -2,11 +2,12 @@ import { useState } from "react";
 import "react-credit-cards/es/styles-compiled.css";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import { Button, Grid, styled, TextField } from "@mui/material";
+import { Grid, styled, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import CreditCard from "@mui/icons-material/CreditCard";
 import { useForm } from "react-hook-form";
 import { useCadastrarCartaoMutation } from "../../generated";
+import { LoadingButton } from "@mui/lab";
 
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
@@ -33,8 +34,25 @@ const AdicionarCartao = () => {
   const [nomeTitular, SetNomeTitular] = useState("");
   const [dataValidadeCartao, SetDataValidadeCartao] = useState("");
   const [focus, SetFocus] = useState();
-  const [loading, setLoading] = useState(false);
-  const { mutate, isLoading, isSuccess } = useCadastrarCartaoMutation();
+  const [display, setDisplay] = useState("none");
+  const [messageReturn, setMessageReturn] = useState("");
+  const [colorButtonReturn, setColorButtonReturn] = useState<
+    "success" | "error"
+  >("error");
+  const { mutate, isSuccess, isLoading } = useCadastrarCartaoMutation({
+    onSuccess: (response) => {
+      console.log(response.cadastrarCartao);
+      if (response.cadastrarCartao.cartaoId == "0") {
+        setDisplay("");
+        setColorButtonReturn("error");
+        setMessageReturn(`${response.cadastrarCartao.observacao}`);
+        return false;
+      }
+      setMessageReturn("Cartão adicionado com sucesso!");
+      setColorButtonReturn("success");
+      setDisplay("");
+    },
+  });
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -48,14 +66,18 @@ const AdicionarCartao = () => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     mutate(data);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box itemType="form" sx={{ flexGrow: 1 }}>
+        <Box
+          maxWidth="800px"
+          minWidth="650px"
+          itemType="form"
+          sx={{ flexGrow: 1 }}
+        >
           <Grid container spacing={1}>
             <Grid item xs={6}>
               <Cards
@@ -66,8 +88,6 @@ const AdicionarCartao = () => {
                 focused={focus}
               />
             </Grid>
-            {/* <FormProvider {...methods}> */}
-
             <Grid item xs={3}>
               <CssTextField
                 id="outlined-input"
@@ -137,19 +157,29 @@ const AdicionarCartao = () => {
             <br />
 
             <Grid item xs={12}>
-              <Button
-                color="success"
+              <LoadingButton
+                loadingIndicator="Salvando Cartão"
+                color="secondary"
                 endIcon={<CreditCard />}
                 variant="contained"
                 fullWidth
                 type="submit"
-                sx={{ py: "0.8rem", mt: "1rem" }}
+                loading={isLoading}
+                sx={{ py: "0.8rem", mt: "1rem", fontSize: "20px" }}
               >
                 Cadastrar Cartão
-              </Button>
+              </LoadingButton>
             </Grid>
-
-            {/* </FormProvider> */}
+            <Grid item xs={12} sx={{ display: `${display}` }}>
+              <LoadingButton
+                color={colorButtonReturn}
+                variant="contained"
+                fullWidth
+                sx={{ py: "0.8rem", mt: "1rem" }}
+              >
+                {messageReturn}
+              </LoadingButton>
+            </Grid>
           </Grid>
         </Box>
       </form>

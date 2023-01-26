@@ -1,0 +1,12 @@
+mutation RemoverCartao($cartaoId: String!)
+{
+  removerCartao(cartaoId: $cartaoId)
+  {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}

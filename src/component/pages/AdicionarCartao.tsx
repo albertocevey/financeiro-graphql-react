@@ -2,7 +2,7 @@ import { useState } from "react";
 import "react-credit-cards/es/styles-compiled.css";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import { Grid, styled, TextField } from "@mui/material";
+import { Grid, styled, TextField, Zoom } from "@mui/material";
 import { Box } from "@mui/system";
 import CreditCard from "@mui/icons-material/CreditCard";
 import { useForm } from "react-hook-form";
@@ -34,23 +34,22 @@ const AdicionarCartao = () => {
   const [nomeTitular, SetNomeTitular] = useState("");
   const [dataValidadeCartao, SetDataValidadeCartao] = useState("");
   const [focus, SetFocus] = useState();
-  const [display, setDisplay] = useState("none");
+  const [checked, setChecked] = useState(false);
   const [messageReturn, setMessageReturn] = useState("");
   const [colorButtonReturn, setColorButtonReturn] = useState<
     "success" | "error"
   >("error");
   const { mutate, isSuccess, isLoading } = useCadastrarCartaoMutation({
     onSuccess: (response) => {
-      console.log(response.cadastrarCartao);
       if (response.cadastrarCartao.cartaoId == "0") {
-        setDisplay("");
+        setChecked((prev) => !prev);
         setColorButtonReturn("error");
         setMessageReturn(`${response.cadastrarCartao.observacao}`);
         return false;
       }
       setMessageReturn("Cartão adicionado com sucesso!");
       setColorButtonReturn("success");
-      setDisplay("");
+      setChecked((prev) => !prev);
     },
   });
 
@@ -170,15 +169,17 @@ const AdicionarCartao = () => {
                 Cadastrar Cartão
               </LoadingButton>
             </Grid>
-            <Grid item xs={12} sx={{ display: `${display}` }}>
-              <LoadingButton
-                color={colorButtonReturn}
-                variant="contained"
-                fullWidth
-                sx={{ py: "0.8rem", mt: "1rem" }}
-              >
-                {messageReturn}
-              </LoadingButton>
+            <Grid item xs={12} sx={{ display: "flex" }}>
+              <Zoom in={checked}>
+                <LoadingButton
+                  color={colorButtonReturn}
+                  variant="contained"
+                  fullWidth
+                  sx={{ py: "0.8rem", mt: "1rem" }}
+                >
+                  {messageReturn}
+                </LoadingButton>
+              </Zoom>
             </Grid>
           </Grid>
         </Box>

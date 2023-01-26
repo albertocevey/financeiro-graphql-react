@@ -1,6 +1,6 @@
 overwrite: true
-schema: "http://localhost:3000/graphql"
-documents: "src/**/**/*.graphql"
+schema: "https://financeiro-graphql-nestjs-production.up.railway.app/graphql"
+documents: "src/component/graphql/**/*.graphql"
 generates:
   src/generated/index.ts:
     plugins: 
@@ -9,7 +9,7 @@ generates:
       - typescript-react-query
     config:
       fetcher:
-        endpoint: "http://localhost:3000/graphql"
+        endpoint: "https://financeiro-graphql-nestjs-production.up.railway.app/graphql"
       
   ./graphql.schema.json:
     plugins:

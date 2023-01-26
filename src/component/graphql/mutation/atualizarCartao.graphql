@@ -1,0 +1,27 @@
+mutation AtualizarCartao(
+$nomeTitular: String,
+$numeroCartao: String,
+$dataValidadeCartao: String,
+$dataVencimentoFatura: String,
+$observacao: String,
+$cartaoId: String!
+)
+{
+  atualizarCartao(atualizarCartaoInput:
+  {
+    nomeTitular: $nomeTitular
+numeroCartao: $numeroCartao
+dataValidadeCartao: $dataValidadeCartao
+dataVencimentoFatura: $dataVencimentoFatura
+observacao: $observacao
+cartaoId: $cartaoId
+})
+  {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}

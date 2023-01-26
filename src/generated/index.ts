@@ -333,6 +333,28 @@ export type User = {
   userId: Scalars["String"];
 };
 
+export type AtualizarCartaoMutationVariables = Exact<{
+  nomeTitular?: InputMaybe<Scalars["String"]>;
+  numeroCartao?: InputMaybe<Scalars["String"]>;
+  dataValidadeCartao?: InputMaybe<Scalars["String"]>;
+  dataVencimentoFatura?: InputMaybe<Scalars["String"]>;
+  observacao?: InputMaybe<Scalars["String"]>;
+  cartaoId: Scalars["String"];
+}>;
+
+export type AtualizarCartaoMutation = {
+  __typename?: "Mutation";
+  atualizarCartao: {
+    __typename?: "Cartao";
+    cartaoId: string;
+    nomeTitular: string;
+    numeroCartao: string;
+    dataValidadeCartao: string;
+    dataVencimentoFatura: string;
+    observacao?: string | null;
+  };
+};
+
 export type CadastrarCartaoMutationVariables = Exact<{
   nomeTitular: Scalars["String"];
   numeroCartao: Scalars["String"];
@@ -344,6 +366,23 @@ export type CadastrarCartaoMutationVariables = Exact<{
 export type CadastrarCartaoMutation = {
   __typename?: "Mutation";
   cadastrarCartao: {
+    __typename?: "Cartao";
+    cartaoId: string;
+    nomeTitular: string;
+    numeroCartao: string;
+    dataValidadeCartao: string;
+    dataVencimentoFatura: string;
+    observacao?: string | null;
+  };
+};
+
+export type RemoverCartaoMutationVariables = Exact<{
+  cartaoId: Scalars["String"];
+}>;
+
+export type RemoverCartaoMutation = {
+  __typename?: "Mutation";
+  removerCartao: {
     __typename?: "Cartao";
     cartaoId: string;
     nomeTitular: string;
@@ -386,6 +425,45 @@ export type CartoesQuery = {
   }>;
 };
 
+export const AtualizarCartaoDocument = `
+    mutation AtualizarCartao($nomeTitular: String, $numeroCartao: String, $dataValidadeCartao: String, $dataVencimentoFatura: String, $observacao: String, $cartaoId: String!) {
+  atualizarCartao(
+    atualizarCartaoInput: {nomeTitular: $nomeTitular, numeroCartao: $numeroCartao, dataValidadeCartao: $dataValidadeCartao, dataVencimentoFatura: $dataVencimentoFatura, observacao: $observacao, cartaoId: $cartaoId}
+  ) {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}
+    `;
+export const useAtualizarCartaoMutation = <
+  TError = unknown,
+  TContext = unknown
+>(
+  options?: UseMutationOptions<
+    AtualizarCartaoMutation,
+    TError,
+    AtualizarCartaoMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    AtualizarCartaoMutation,
+    TError,
+    AtualizarCartaoMutationVariables,
+    TContext
+  >(
+    ["AtualizarCartao"],
+    (variables?: AtualizarCartaoMutationVariables) =>
+      fetcher<AtualizarCartaoMutation, AtualizarCartaoMutationVariables>(
+        AtualizarCartaoDocument,
+        variables
+      )(),
+    options
+  );
 export const CadastrarCartaoDocument = `
     mutation CadastrarCartao($nomeTitular: String!, $numeroCartao: String!, $dataValidadeCartao: String!, $dataVencimentoFatura: String!, $observacao: String) {
   cadastrarCartao(
@@ -421,6 +499,40 @@ export const useCadastrarCartaoMutation = <
     (variables?: CadastrarCartaoMutationVariables) =>
       fetcher<CadastrarCartaoMutation, CadastrarCartaoMutationVariables>(
         CadastrarCartaoDocument,
+        variables
+      )(),
+    options
+  );
+export const RemoverCartaoDocument = `
+    mutation RemoverCartao($cartaoId: String!) {
+  removerCartao(cartaoId: $cartaoId) {
+    cartaoId
+    nomeTitular
+    numeroCartao
+    dataValidadeCartao
+    dataVencimentoFatura
+    observacao
+  }
+}
+    `;
+export const useRemoverCartaoMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    RemoverCartaoMutation,
+    TError,
+    RemoverCartaoMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    RemoverCartaoMutation,
+    TError,
+    RemoverCartaoMutationVariables,
+    TContext
+  >(
+    ["RemoverCartao"],
+    (variables?: RemoverCartaoMutationVariables) =>
+      fetcher<RemoverCartaoMutation, RemoverCartaoMutationVariables>(
+        RemoverCartaoDocument,
         variables
       )(),
     options
